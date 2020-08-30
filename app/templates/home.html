@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Air Quality Tracker - Monitor de Qualidade do Ar</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('assets', path='/css/atlas.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('assets', path='css//style.min.css') }}"
+    />
+    <script src="{{ url_for('assets', path='/js/atlas.min.js') }}" />
+    <script src="{{ url_for('assets', path='/js/atlas-service.min.js') }}" />
+    <script src="{{ url_for('assets', path='/js/azuremaps.min.js') }}" />
+  </head>
+  <body onload="GetMap()">
+    <div id="myMap"></div>
+
+    <div id="search">
+      <div class="search-input-box">
+        <div class="search-input-group">
+          <div class="search-icon" type="button"></div>
+          <input id="search-input" type="text" placeholder="Search" />
+        </div>
+      </div>
+      <ul id="results-panel"></ul>
+    </div>
+  </body>
+</html>
