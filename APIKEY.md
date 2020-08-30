@@ -4,6 +4,6 @@
 2. Login with your account or create an account, if you don't have one
 3. In the 'Search' area, look for 'Azure Maps Accounts'
 
-<p align="center"><img src="/resources/tutorial01.png"></p>
+<p><align="center"><img src="/resources/tutorial01.png"></p>
 
 4.
