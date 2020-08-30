@@ -1,10 +1,11 @@
-import os
 import json
+import os
+
 import requests
 from fastapi import FastAPI, Request
-from pydantic import BaseModel
-from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 
 app = FastAPI()
 app.mount('/assets', StaticFiles(directory='templates/assets'), name='assets')
