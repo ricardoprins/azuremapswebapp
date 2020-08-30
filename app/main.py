@@ -9,8 +9,7 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 app.mount('/assets', StaticFiles(directory='templates/assets'), name='assets')
 templates = Jinja2Templates(directory='templates')
-# apikey = {"map_key": os.environ.get('MAP_KEY')}
-apikey = {"map_key": "jphGVAbly1ZAmDCcsyX-q6K263wJWmThhBkue0xJYow"}
+apikey = {"map_key": os.environ.get('MAP_KEY')}
 
 
 class MapKey(BaseModel):
