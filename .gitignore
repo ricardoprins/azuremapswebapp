@@ -1,2 +1,5 @@
-*.code-workspace
+env/
 .env
+templates/assets/css/style.css
+templates/assets/js/azuremaps.js
+__pycache__/
