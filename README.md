@@ -18,3 +18,7 @@ _Este web app usa FastAPI - um framework web moderno e veloz para a construção
 The web app is hosted on [Azure](https://portal.azure.com/).
 
 _Este web app está hospedado no Azure._
+
+To complete all steps in this tutorial, you'll need an API key from the [Air Quality Open Data Platform](https://aqicn.org/data-platform/token/#/). Click on the link, enter your email and name, and after an email confirmation, you'll be able to get the API key from their website.
+
+_Para completar todos os passos desse tutorial, você precisará de uma chave API do Air Quality Open Data Platform. Clique no link, insira seu nome e email, e após uma confirmação por email, você poderá obter a chave API pelo site._
