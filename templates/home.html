@@ -1,39 +1,101 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
   <head>
+    <title>Air Quality tracker</title>
+    <!-- Ensures that IE and Edge uses the latest version and doesn't emulate an older version -->
+    <meta http-equiv="x-ua-compatible" content="IE=Edge" />
     <meta charset="utf-8" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="upgrade-insecure-requests"
-    />
+    <!-- Ensures the web page looks good on all screen sizes. -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Air Quality Tracker - Monitor de Qualidade do Ar</title>
+    <!-- Import the Azure Maps control -->
     <link
       rel="stylesheet"
-      href="{{ url_for('assets', path='/css/atlas.min.css') }}"
+      href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css"
+      type="text/css"
     />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('assets', path='css//style.min.css') }}"
-    />
-    <script src="{{ url_for('assets', path='/js/atlas.min.js') }}"></script>
-    <script src="{{ url_for('assets', path='/js/atlas-service.min.js') }}"></script>
-    <script src="{{ url_for('assets', path='/js/azuremaps.min.js') }}"></script>
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      #myMap {
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
   </head>
-  <body onload="GetMap()">
+  <body>
     <div id="myMap"></div>
+    <script type="text/javascript">
+      window.addEventListener("DOMContentLoaded", function () {
+        // Pick a pre-defined location of the Microsoft Campus
+        map_center = [-122.136866, 47.642472];
 
-    <div id="search">
-      <div class="search-input-box">
-        <div class="search-input-group">
-          <div class="search-icon" type="button"></div>
-          <input id="search-input" type="text" placeholder="Search" />
-        </div>
-      </div>
-      <ul id="results-panel"></ul>
-    </div>
+        // Get the users location if permitted - they will be asked for permission before we can get their location
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            map_center = [position.coords.longitude, position.coords.latitude];
+          });
+        }
+
+        //Create an instance of the map control using the map key from the Flask app
+        var map = new atlas.Map("myMap", {
+          authOptions: {
+            authType: "subscriptionKey",
+            subscriptionKey: "{{ data.map_key }}",
+          },
+        });
+
+        // when the map is ready, center the map on the users location
+        // when the map is ready, center the map on the users location
+        map.events.add("ready", function () {
+          // Declare a data source for the AQI data
+          var datasource = new atlas.source.DataSource();
+          map.sources.add(datasource);
+
+          // Declare a function to update the AQI data
+          function updateAQIData(e) {
+            // Get the current bounds on screen
+            bounds = map.getCamera().bounds;
+
+            // Set the data source data to results of the aqi call
+            // This is a feature collection with the AQI measurements
+            fetch("./aqi?bounds=" + bounds)
+              .then((res) => {
+                return res.json();
+              })
+              .then((response) => {
+                datasource.clear();
+                datasource.setShapes(response);
+              });
+          }
+
+          // Add a bubble layer
+          map.layers.add(
+            new atlas.layer.BubbleLayer(datasource, null, {
+              radius: 10,
+              opacity: 0.5,
+              strokeOpacity: 0,
+              // Get the color from the color property
+              color: ["get", "color"],
+            })
+          );
+
+          // Handle any events that change the bounds of the map
+          map.events.add("zoomend", updateAQIData);
+          map.events.add("dragend", updateAQIData);
+          map.events.add("pitchend", updateAQIData);
+
+          map.setCamera({
+            center: map_center,
+            zoom: 5,
+          });
+        });
+      });
+    </script>
   </body>
 </html>
