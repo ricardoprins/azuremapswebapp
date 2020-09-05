@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "d:\\myrepositories\\azuremapswebapp\\env\\Scripts\\python.exe",
+    "python.pythonPath": "/opt/python/latest/bin/python",
     "python.formatting.provider": "black"
 }
