@@ -42,15 +42,13 @@
           });
         }
 
-        //Create an instance of the map control using the map key from the Flask app
         var map = new atlas.Map("myMap", {
           authOptions: {
             authType: "subscriptionKey",
-            subscriptionKey: "{{ data.map_key }}",
+            subscriptionKey: "{{ map_key }}",
           },
         });
 
-        // when the map is ready, center the map on the users location
         // when the map is ready, center the map on the users location
         map.events.add("ready", function () {
           // Declare a data source for the AQI data
