@@ -1,8 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel
 from dotenv import load_dotenv
-
 import requests
 import os
 
@@ -16,13 +14,6 @@ WAQI_API_URL = "https://api.waqi.info/map/bounds/?latlng={},{},{},{}&token={}"
 WAQI_API_KEY = os.environ["WAQI_API_KEY"]
 
 
-class Bounds(BaseModel):
-    lat1: str
-    lat2: str
-    lon1: str
-    lon2: str
-
-
 @app.get('/')
 async def home(request: Request, map_key: str = MAP_KEY):
     return template.TemplateResponse('home.html', {
@@ -31,9 +22,10 @@ async def home(request: Request, map_key: str = MAP_KEY):
     })
 
 
-@app.get("/aqi", response_model=Bounds)
-async def get_aqi(request: Request, bounds: Bounds):
-    return load_aqi_data(bounds.lat1, bounds.lat2, bounds.lon1, bounds.lon2)
+@app.get("/aqi")
+async def get_aqi(bounds: str):
+    mapdata = bounds.split(",")
+    return load_aqi_data(mapdata[0], mapdata[1], mapdata[2], mapdata[3])
 
 
 def get_color(aqi):
@@ -53,9 +45,7 @@ def get_color(aqi):
 def load_aqi_data(lon1, lat1, lon2, lat2):
     url = WAQI_API_URL.format(lat1, lon1, lat2, lon2, WAQI_API_KEY)
     aqi_data = requests.get(url)
-
     feature_collection = {"type": "FeatureCollection", "features": []}
-
     for value in aqi_data.json()["data"]:
         if value["aqi"] != "-":
             feature_collection["features"].append(
@@ -68,5 +58,4 @@ def load_aqi_data(lon1, lat1, lon2, lat2):
                     },
                 }
             )
-
     return feature_collection

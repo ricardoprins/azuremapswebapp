@@ -59,4 +59,5 @@ def load_aqi_data(lon1, lat1, lon2, lat2):
 @app.route("/aqi", methods=["GET"])
 def get_aqi():
     bounds = request.args["bounds"].split(",")
-    return json.dumps(load_aqi_data(bounds[0], bounds[1], bounds[2], bounds[3]))
+    data = load_aqi_data(bounds[0], bounds[1], bounds[2], bounds[3])
+    return json.dumps(data)
