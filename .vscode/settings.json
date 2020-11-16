@@ -1,7 +1,0 @@
-{
-    "python.pythonPath": "/Users/ricardoprins/myrepositories/azuremapswebapp/azuremapswebapp/env/bin/python3",
-    "python.formatting.provider": "black",
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
-}
