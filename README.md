@@ -7,7 +7,7 @@ This web app uses Azure Maps SDK to visualize spatial data on an interactive map
 
 - An [Azure Maps](./APIKEY.md) account + Client ID (_uma conta Azure Maps + Client ID_)
 - Python 3.6 or higher (_Python 3.6 ou superior_)
-- For the Python library requirements, please check the _requirements.txt_ file (_Consulte o arquivo requirements.txt para ver as bibliotecas necessárias no Python_)
+- Requirements are controlled via Poetry (o Poetry está sendo utilizado para controlar as dependências)
 
 To complete all steps in this tutorial, you'll need an API key from the [World Air Quality Index](https://aqicn.org/data-platform/token/#/). Click on the link, enter your email and name, and after an email confirmation, you'll be able to get the API key from their website.
 
