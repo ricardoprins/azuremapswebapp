@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from dotenv import load_dotenv
 import requests
@@ -7,6 +8,7 @@ import os
 
 load_dotenv()
 app = FastAPI()
+app.mount('/assets', StaticFiles(directory='../templates'), name='assets')
 template = Jinja2Templates(directory='../templates')
 
 MAP_KEY = os.getenv("MAP_KEY")

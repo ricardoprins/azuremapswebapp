@@ -1,7 +1,4 @@
 env/
-.env
-templates/assets/css/style.css
 __pycache__/
 .vscode/
-pythonenv3.8/
 *.code-workspace

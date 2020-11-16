@@ -14,19 +14,10 @@
     <link
       rel="stylesheet"
       href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css"
-      type="text/css"
     />
+    <link rel="stylesheet" href={{url_for('assets', path='/style.css')}}>
     <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
-    <style>
-      html,
-      body {
-        margin: 0;
-      }
-      #myMap {
-        height: 100vh;
-        width: 100vw;
-      }
-    </style>
+
   </head>
   <body>
     <div id="myMap"></div>
