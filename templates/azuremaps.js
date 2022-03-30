@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", function () {
       map_center = [position.coords.longitude, position.coords.latitude];
     });
   }
-
+  // loading the map from Azure Maps
   var map = new atlas.Map("myMap", {
     authOptions: {
       authType: "subscriptionKey",

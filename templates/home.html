@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <!--Header-->
   <head>
-    <title>Air Quality tracker</title>
-    <!-- Ensures that IE and Edge uses the latest version and doesn't emulate an older version -->
-    <meta http-equiv="x-ua-compatible" content="IE=Edge" />
-    <meta charset="utf-8" />
-    <!-- Ensures the web page looks good on all screen sizes. -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <!-- Import the Azure Maps control -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Tracker</title>
+    <link rel="shortcut icon" href={{url_for('assets', path='/favicon.ico')}} type="image/x-icon">
+    <!--Azure Maps API-->
     <link
       rel="stylesheet"
       href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css"
     />
     <link rel="stylesheet" href={{url_for('assets', path='/style.css')}}>
     <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+
   </head>
+
+  <!--Body -->
   <body>
     <div id="myMap"></div>
     <script type="text/javascript" src={{url_for('assets', path='/azuremaps.js')}}></script>
