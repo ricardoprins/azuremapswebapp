@@ -1,5 +1,15 @@
+# Virtual environments
 env/
+
+# Python files
 __pycache__/
+
+# IDE Stuff
 .vscode/
 *.code-workspace
+
+# .env files - we don't want our secrets out there, right?
 .env
+
+# Mac stuff
+.DS_Store
