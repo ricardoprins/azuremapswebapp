@@ -1,6 +1,6 @@
-window.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", async function () {
   // Coordinates, in case location is not available
-  map_center = [40.771141, -111.900237];
+  let map_center = [40.771141, -111.900237];
   // Get the users location if permitted - they will be asked for permission before we can get their location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   }
   // loading the map from Azure Maps
-  var map = new atlas.Map("myMap", {
+  const map = new atlas.Map("myMap", {
     authOptions: {
       authType: "subscriptionKey",
       subscriptionKey: "{{ map_key }}",
@@ -16,27 +16,27 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   // when the map is ready, center the map on the users location
-  map.events.add("ready", function () {
+  map.events.add("ready", async function () {
     // Declare a data source for the AQI data
-    var datasource = new atlas.source.DataSource();
+    const datasource = new atlas.source.DataSource();
     map.sources.add(datasource);
 
     // Declare a function to update the AQI data
-    function updateAQIData(e) {
+    const updateAQIData = async (e) => {
       // Get the current bounds on screen
-      bounds = map.getCamera().bounds;
+      const bounds = map.getCamera().bounds;
 
       // Set the data source data to results of the aqi call
       // This is a feature collection with the AQI measurements
-      fetch("./aqi?bounds=" + bounds)
-        .then((res) => {
-          return res.json();
-        })
-        .then((response) => {
-          datasource.clear();
-          datasource.setShapes(response);
-        });
-    }
+      try {
+        const response = await fetch("./aqi?bounds=" + bounds);
+        const data = await response.json();
+        datasource.clear();
+        datasource.setShapes(data);
+      } catch (error) {
+        console.error("Error fetching AQI data: ", error);
+      }
+    };
 
     // Add a bubble layer
     map.layers.add(
